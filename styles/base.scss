@@ -38,7 +38,7 @@ button {
 // reduce or no-preference
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0s !important;
-    transition-duration: 0s !important;
+    //animation-duration: 0s !important;
+    //transition-duration: 0s !important;
   }
 }
