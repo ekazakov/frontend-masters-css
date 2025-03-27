@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,7 +10,7 @@
   <body>
     <form class="ui-form" data-state="subscribe">
       <input class="ui-input" type="email" placeholder="your@email.com" />
-      <button class="ui-button" type="button" onclick="setState('subscribing')">
+      <button class="ui-button" type="submit" >
         <span>Subscribe</span>
         <span>Subscribing</span>
         <span>Success!</span>
@@ -21,6 +21,18 @@
   <script>
     const form = document.querySelector('.ui-form');
 
+    function setState(state) {
+        form.dataset.state = state;
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      setState('loading');
+      setTimeout(() => {
+
+        setState('success');
+      }, 2000);
+    });
     // ...
   </script>
 </html>
