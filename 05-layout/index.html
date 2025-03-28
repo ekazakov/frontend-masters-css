@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,14 +23,40 @@
     </div>
   </body>
   <script>
-    const figureEl = document.querySelector('.ui-figure');
-    const captionEl = document.querySelector('.ui-caption');
-    const appEl = document.querySelector('#app');
+    const figureEl = document.querySelector(".ui-figure");
+    const captionEl = document.querySelector(".ui-caption");
+    const appEl = document.querySelector("#app");
 
-    appEl.addEventListener('click', () => {
-      app.dataset.state =
-        app.dataset.state === 'collapsed' ? 'expanded' : 'collapsed';
+    appEl.addEventListener("click", () => {
+      flip([figureEl, captionEl], () => {
+        app.dataset.state =
+          app.dataset.state === "collapsed" ? "expanded" : "collapsed";
+      });
     });
-    // ...
+
+    function flip(elements, cb) {
+      const initialBoxes = elements.map((el) => el.getBoundingClientRect());
+      cb?.();
+
+      requestAnimationFrame(() => {
+        const finalBoxes = elements.map((el) => el.getBoundingClientRect());
+
+        elements.forEach((el, index) => {
+          const dx = initialBoxes[index].x - finalBoxes[index].x;
+          const dy = initialBoxes[index].y - finalBoxes[index].y;
+          const dw = initialBoxes[index].width / finalBoxes[index].width;
+          const dh = initialBoxes[index].height / finalBoxes[index].height;
+          el.style.setProperty("--dx", dx);
+          el.style.setProperty("--dy", dy);
+          el.style.setProperty("--dw", dw);
+          el.style.setProperty("--dh", dh);
+          el.dataset.flip = "invert";
+
+          requestAnimationFrame(() => {
+            el.dataset.flip = "play";
+          });
+        });
+      });
+    }
   </script>
 </html>
