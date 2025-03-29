@@ -198,6 +198,7 @@
       const states = state.split('.').map((segment, i, segments) => {
         return segments.slice(0, i + 1).join('.');
       });
+    console.log("states:", states);
 
       states.forEach((subState) => {
         const screen = document.querySelector(`[data-screen^="${subState}"]`);
